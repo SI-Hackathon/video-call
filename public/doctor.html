@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Video Call</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        video {
+            width: 45%;
+            border: 2px solid #ccc;
+            margin: 10px;
+        }
+        input, button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .emotion-label {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Doctor Video Call</h1>
+    <input type="text" id="roomCode" placeholder="Enter Room Code">
+    <button id="join">Join Call</button>
+    <button id="endCall">End Call</button>
+    <br>
+    <video id="remoteVideo" autoplay></video>
+    <div class="emotion-label" id="emotionLabel">Emotion: </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const videoElement = document.getElementById('remoteVideo');
+        const emotionLabelElement = document.getElementById('emotionLabel');
+
+        socket.on('emotion-label', (emotion) => {
+            emotionLabelElement.innerText = `Emotion: ${emotion}`;
+        });
+    </script>
+</body>
+</html>
